@@ -18,6 +18,9 @@ terraform-aws-portfolio/
 │   └── security/     # IAM roles, Security Groups
 └── scripts/          # Bootstrap del estado remoto
 ```
+> **Nota:** Los rangos de red están dimensionados intencionalmente pequeños
+> (VPC /26, subnets /28) ya que es un entorno de pruebas y portfolio.
+> En un entorno productivo real se dimensionarían según los requisitos del proyecto.
 
 ## Requisitos
 
