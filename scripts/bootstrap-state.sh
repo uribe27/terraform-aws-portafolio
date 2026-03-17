@@ -5,8 +5,8 @@ set -euo pipefail
 ENVIRONMENT="${1:?Error: debes indicar el entorno (dev|prod)}"
 PROJECT="portfolio"
 REGION="eu-west-1"
-BUCKET_NAME="${PROJECT}-terraform-state-${ENVIRONMENT}"
-DYNAMODB_TABLE="${PROJECT}-terraform-locks-${ENVIRONMENT}"
+BUCKET_NAME="${PROJECT}-terraform-state-adur-${ENVIRONMENT}"
+DYNAMODB_TABLE="${PROJECT}-terraform-locks-adur-${ENVIRONMENT}"
 
 echo "=== Bootstrap del estado remoto ==="
 echo "Entorno   : ${ENVIRONMENT}"
