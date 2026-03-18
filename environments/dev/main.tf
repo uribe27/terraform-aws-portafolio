@@ -44,3 +44,14 @@ module "networking" {
 
   enable_nat_gateway = true
 }
+
+module "security" {
+  source = "../../modules/security"
+
+  project     = "portfolio"
+  environment = "dev"
+  common_tags = local.common_tags
+
+  vpc_id   = module.networking.vpc_id
+  app_port = 8080
+}
