@@ -55,3 +55,31 @@ module "security" {
   vpc_id   = module.networking.vpc_id
   app_port = 8080
 }
+
+module "compute" {
+  source = "../../modules/compute"
+
+  project = "portfolio"
+  environment = "dev"
+  common_tags = local.common_tags
+
+  # Red — outputs del módulo networking
+  vpc_id = module.networking.vpc_id
+  public_subnet_ids = module.networking.public_subnet_ids
+  private_subnet_ids = module.networking.private_subnet_ids
+
+  # Seguridad — outputs del módulo security
+  sg_alb_id = module.security.sg_alb_id
+  sg_ec2_id = module.security.sg_ec2_id
+  ec2_instance_profile_name = module.security.ec2_instance_profile_name
+
+  # Instancia — Amazon Linux 2023 en eu-west-1
+  ami_id = "ami-0d940f23d527c3ab1"
+  instance_type = "t3.micro"
+  app_port = 8080
+
+  # ASG en dev: mínimo 1, máximo 2, deseado 1
+  asg_min_size = 1
+  asg_max_size = 2
+  asg_desired_capacity = 1
+}
