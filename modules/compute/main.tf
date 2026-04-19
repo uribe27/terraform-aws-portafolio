@@ -166,7 +166,7 @@ resource "aws_autoscaling_group" "app" {
 # ==============================================================================
 
 resource "aws_autoscaling_policy" "cpu_target" {
-  name                   = "${var.project}-${var.environment}-asg-policy-cpu"
+  name                   = "${var.project}-${var.environment}-asg-cpu-policy"
   autoscaling_group_name = aws_autoscaling_group.app.name
   policy_type            = "TargetTrackingScaling"
 
