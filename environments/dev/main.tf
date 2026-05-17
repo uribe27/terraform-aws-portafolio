@@ -83,3 +83,34 @@ module "compute" {
   asg_max_size = 2
   asg_desired_capacity = 1
 }
+
+module "database" {
+  source = "../../modules/database"
+
+  project     = "portfolio"
+  environment = "dev"
+  common_tags = local.common_tags
+
+  # Red — outputs del módulo networking
+  private_subnet_ids = module.networking.private_subnet_ids
+
+  # Seguridad — outputs del módulo security
+  sg_rds_id = module.security.sg_rds_id
+
+  # Base de datos — valores para dev
+  # IMPORTANTE: en un entorno real, db_password debe venir de AWS Secrets Manager
+  # o de una variable de entorno. Nunca hardcodeada en el código.
+  db_name     = "appdb"
+  db_username = "dbadmin"
+  db_password = var.db_password
+
+  # En dev usamos la instancia más pequeña posible para minimizar costos
+  db_instance_class    = "db.t3.micro"
+  db_allocated_storage = 20
+
+  # Sin autoscaling de storage en dev
+  db_max_allocated_storage = 0
+
+  # Retención de backups reducida en dev (7 días vs 30 en prod)
+  db_backup_retention_days = 7
+}
